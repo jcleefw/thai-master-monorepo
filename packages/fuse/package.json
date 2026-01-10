@@ -19,6 +19,9 @@
   "scripts": {
     "dev": "vite build --watch",
     "build": "tsc && vite build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui",
     "type-check": "tsc --noEmit",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
   },

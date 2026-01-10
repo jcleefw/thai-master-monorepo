@@ -5,7 +5,8 @@
  * Built with React, TypeScript, and Vite.
  */
 
-// Placeholder export - components will be added in future stories
 export const version = '0.1.0';
 
-export type { };
+// Components
+export { Button } from './components/Button/Button';
+export type { ButtonProps } from './components/Button/Button';
