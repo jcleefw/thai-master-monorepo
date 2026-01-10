@@ -1,0 +1,45 @@
+{
+  "name": "@thai-master/fuse",
+  "version": "0.1.0",
+  "description": "Fuse - Reusable component library for Thai Master",
+  "type": "module",
+  "main": "./dist/fuse.umd.cjs",
+  "module": "./dist/fuse.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/fuse.js",
+      "require": "./dist/fuse.umd.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite build --watch",
+    "build": "tsc && vite build",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "@vitejs/plugin-react": "^4.2.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.8",
+    "vite-plugin-dts": "^3.7.0"
+  },
+  "keywords": [
+    "react",
+    "components",
+    "ui",
+    "thai-master"
+  ]
+}
