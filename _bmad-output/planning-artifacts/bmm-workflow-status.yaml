@@ -48,14 +48,15 @@ workflow_status:
         name: "Product Requirements Document"
         agent: "pm"
         command: "/bmad:bmm:workflows:create-prd"
-        status: "required"
+        status: "_bmad-output/planning-artifacts/prd.md"
+        completed: "2026-01-09"
 
       - id: "create-ux-design"
         name: "UX Design"
         agent: "ux-designer"
         command: "/bmad:bmm:workflows:create-ux-design"
-        status: "conditional"
-        note: "Required if project has UI (determined after PRD)"
+        status: "_bmad-output/planning-artifacts/ux-design-specification.md"
+        completed: "2026-01-09"
 
   - phase: 3
     name: "Solutioning"
@@ -64,7 +65,8 @@ workflow_status:
         name: "Architecture"
         agent: "architect"
         command: "/bmad:bmm:workflows:create-architecture"
-        status: "required"
+        status: "_bmad-output/planning-artifacts/architecture.md"
+        completed: "2026-01-10"
 
       - id: "create-epics-and-stories"
         name: "Epics and Stories"
