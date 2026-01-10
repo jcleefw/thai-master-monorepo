@@ -1,0 +1,34 @@
+{
+  "name": "thai-master-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Thai Master - Script-first Thai language learning application",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build:fuse && npm run build:app",
+    "build:fuse": "npm run build --workspace=@thai-master/fuse",
+    "build:app": "npm run build --workspace=@thai-master/app",
+    "dev": "npm run dev --workspace=@thai-master/app",
+    "dev:fuse": "npm run dev --workspace=@thai-master/fuse",
+    "test": "npm run test --workspaces",
+    "lint": "npm run lint --workspaces",
+    "type-check": "npm run type-check --workspaces"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  },
+  "keywords": [
+    "thai",
+    "language-learning",
+    "education",
+    "pwa"
+  ],
+  "author": "thaieager",
+  "license": "MIT"
+}
