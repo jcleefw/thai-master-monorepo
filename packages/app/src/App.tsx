@@ -1,12 +1,10 @@
 import { version } from '@thai-master/fuse';
-import { StoreDebug } from './components/StoreDebug';
 
 export function App() {
   return (
     <>
-      {/* Store Debug Component - REMOVE BEFORE PRODUCTION */}
-      <StoreDebug />
-
+      <h1>Thai Master - Script-first Thai language learning</h1>
+      
       {/* Original App Content */}
       <div style={{
         padding: '2rem',
