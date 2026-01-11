@@ -17,6 +17,8 @@
     "build:app": "npm run build --workspace=@thai-master/app",
     "dev": "npm run dev --workspace=@thai-master/app",
     "dev:fuse": "npm run dev --workspace=@thai-master/fuse",
+    "storybook": "npm run storybook --workspace=@thai-master/fuse",
+    "storybook:build": "npm run build-storybook --workspace=@thai-master/fuse",
     "test": "npm run test --workspace=@thai-master/fuse && npm run test --workspace=@thai-master/app",
     "test:watch": "vitest",
     "test:ui": "vitest --ui",

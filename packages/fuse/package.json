@@ -23,7 +23,9 @@
     "test:watch": "vitest",
     "test:ui": "vitest --ui",
     "type-check": "tsc --noEmit",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.12",
@@ -55,7 +57,16 @@
     "typescript": "^5.3.3",
     "vite": "^5.0.8",
     "vite-plugin-dts": "^3.7.0",
-    "vitest": "^2.0.0"
+    "vitest": "^2.0.0",
+    "storybook": "8.4.7",
+    "@storybook/react": "8.4.7",
+    "@storybook/react-vite": "8.4.7",
+    "@storybook/blocks": "8.4.7",
+    "@storybook/addon-onboarding": "8.4.7",
+    "@storybook/addon-essentials": "8.4.7",
+    "@chromatic-com/storybook": "^3.2.7",
+    "@storybook/test": "8.4.7",
+    "@storybook/addon-interactions": "8.4.7"
   },
   "keywords": [
     "react",
