@@ -3,8 +3,9 @@ story_id: "1-6"
 story_key: "1-6-configure-thai-font-loading-theme-foundation"
 epic: "epic-1"
 title: "Configure Thai Font Loading & Theme Foundation"
-status: "ready-for-dev"
+status: "done"
 created: "2026-01-11"
+completed: "2026-01-12"
 ---
 
 # Story 1.6: Configure Thai Font Loading & Theme Foundation
@@ -238,4 +239,4 @@ Following red-green-refactor cycle for theme foundation:
 - 2026-01-11: Story completed - all acceptance criteria met, tested and verified
 
 ## Status
-review
+done

@@ -3,7 +3,7 @@ story_id: "1-8"
 story_key: "1-8-add-storybook-to-fuse-library"
 epic: "epic-1"
 title: "Add Storybook to @thai-master/fuse Library"
-status: "review"
+status: "done"
 created: "2026-01-11"
 completed: "2026-01-12"
 ---
@@ -221,4 +221,4 @@ Successfully integrated Storybook 8.4.7 into the Fuse component library with com
 - 2026-01-12: All tests passing, story completed and ready for review
 
 ## Status
-review
+done

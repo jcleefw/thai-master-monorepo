@@ -47,9 +47,9 @@ development_status:
   1-3-set-up-ci-cd-pipeline-github-actions-cloudflare-pages: done
   1-4-implement-core-zustand-store-with-localstorage-persistence: done
   1-5-integrate-sentry-error-tracking: done
-  1-6-configure-thai-font-loading-theme-foundation: review
+  1-6-configure-thai-font-loading-theme-foundation: done
   1-7-create-project-context-documentation: ready-for-dev
-  1-8-add-storybook-to-fuse-library: review
+  1-8-add-storybook-to-fuse-library: done
   1-9-deploy-to-cloudflare-pages-via-github-actions: ready-for-dev
   epic-1-retrospective: optional
 
