@@ -1,25 +1,25 @@
-import { version } from '@thai-master/fuse';
+import { version, ThemeTest } from '@thai-master/fuse';
 
 export function App() {
   return (
-    <>
+    <div style={{ padding: '2rem' }}>
       <h1>Thai Master - Script-first Thai language learning</h1>
-      
-      {/* Original App Content */}
+
+      <div style={{ marginTop: '2rem' }}>
+        <ThemeTest showThaiSample={true} />
+      </div>
+
       <div style={{
         padding: '2rem',
-        fontFamily: 'system-ui, sans-serif',
         borderTop: '2px solid #ddd',
         marginTop: '2rem',
         textAlign: 'center',
-        color: '#999',
+        opacity: 0.6,
       }}>
         <p style={{ fontSize: '0.875rem' }}>
           Fuse Library v{version}
         </p>
-
-       
       </div>
-    </>
+    </div>
   );
 }

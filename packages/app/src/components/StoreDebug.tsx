@@ -45,7 +45,7 @@ export function StoreDebug() {
   const corruptData = () => {
     // Manually corrupt LocalStorage data to test recovery
     localStorage.setItem('thai-master:store', '{invalid json')
-    alert('LocalStorage corrupted! Reload the page to test corruption recovery.')
+    window.alert('LocalStorage corrupted! Reload the page to test corruption recovery.')
   }
 
   const corruptSchema = () => {
@@ -60,7 +60,7 @@ export function StoreDebug() {
       },
     }
     localStorage.setItem('thai-master:store', JSON.stringify(invalidData))
-    alert('Schema corrupted! Reload the page to test schema validation recovery.')
+    window.alert('Schema corrupted! Reload the page to test schema validation recovery.')
   }
 
   const viewLocalStorage = () => {
@@ -72,13 +72,13 @@ export function StoreDebug() {
     console.log('Store Data:', storeData ? JSON.parse(storeData) : 'empty')
     console.log('Corrupted Backup:', corruptedData || 'none')
 
-    alert('Check browser console for LocalStorage contents')
+    window.alert('Check browser console for LocalStorage contents')
   }
 
   const clearAllData = () => {
     localStorage.clear()
     store.resetStore()
-    alert('LocalStorage cleared and store reset!')
+    window.alert('LocalStorage cleared and store reset!')
   }
 
   return (

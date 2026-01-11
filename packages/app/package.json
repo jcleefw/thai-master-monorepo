@@ -22,6 +22,7 @@
     "@thai-master/fuse": "*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "styled-components": "^6.1.17",
     "zod": "^4.3.5",
     "zustand": "^5.0.9"
   },
@@ -29,6 +30,7 @@
     "@playwright/test": "^1.45.0",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
+    "@types/styled-components": "^5.1.34",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0",
     "@vitejs/plugin-react": "^4.2.1",
