@@ -3,8 +3,9 @@ story_id: "1-5"
 story_key: "1-5-integrate-sentry-error-tracking"
 epic: "epic-1"
 title: "Integrate Sentry Error Tracking"
-status: "ready-for-dev"
+status: "done"
 created: "2026-01-11"
+completed: "2026-01-11"
 ---
 
 # Story 1.5: Integrate Sentry Error Tracking
@@ -173,4 +174,4 @@ Following red-green-refactor cycle for Sentry integration:
 - 2026-01-11: Story completed - all acceptance criteria met, tested and verified
 
 ## Status
-review
+done
