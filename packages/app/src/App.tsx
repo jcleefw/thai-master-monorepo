@@ -1,5 +1,4 @@
 import { version } from '@thai-master/fuse';
-import { StoreDebug } from './components/StoreDebug';
 
 export function App() {
   return (
