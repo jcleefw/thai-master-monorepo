@@ -18,6 +18,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@sentry/react": "^10.32.1",
     "@thai-master/fuse": "*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

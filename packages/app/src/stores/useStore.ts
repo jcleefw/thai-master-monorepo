@@ -14,6 +14,7 @@
 
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
+import * as Sentry from '@sentry/react'
 import { storeSchema } from './schemas'
 import type { Store, StoreState, CharacterProgress, VocabularyProgress, QuizScores, UserPreferences } from './types'
 
@@ -62,6 +63,21 @@ const storage = createJSONStorage(() => ({
         console.error('❌ LocalStorage data parsing failed - corrupted JSON detected:', parseError)
         console.error('Resetting store to default state. Corrupted data backed up for debugging.')
 
+        // Report to Sentry with full context
+        Sentry.captureException(parseError, {
+          level: 'error',
+          tags: {
+            error_type: 'localstorage_json_parse_error',
+            store_key: name,
+          },
+          contexts: {
+            corrupted_data: {
+              raw_value: item.substring(0, 500), // First 500 chars to avoid payload size issues
+              value_length: item.length,
+            },
+          },
+        })
+
         // Backup corrupted data for debugging
         try {
           localStorage.setItem('thai-master:store:corrupted', item)
@@ -81,6 +97,24 @@ const storage = createJSONStorage(() => ({
       } catch (validationError) {
         console.error('❌ LocalStorage data validation failed - schema mismatch detected:', validationError)
         console.error('Resetting store to default state. Corrupted data backed up for debugging.')
+
+        // Report to Sentry with full context
+        Sentry.captureException(validationError, {
+          level: 'error',
+          tags: {
+            error_type: 'localstorage_zod_validation_error',
+            store_key: name,
+          },
+          contexts: {
+            corrupted_data: {
+              data_structure: JSON.stringify(parsed, null, 2).substring(0, 1000), // First 1000 chars
+              data_keys: Object.keys(parsed || {}),
+            },
+            validation_error: {
+              error_details: validationError instanceof Error ? validationError.message : String(validationError),
+            },
+          },
+        })
 
         // Backup corrupted data for debugging
         try {
@@ -107,8 +141,31 @@ const storage = createJSONStorage(() => ({
       if (error instanceof Error && error.name === 'QuotaExceededError') {
         console.error('❌ LocalStorage quota exceeded - unable to save state')
         console.error('Please clear browser data or export your progress for backup')
+
+        // Report to Sentry
+        Sentry.captureException(error, {
+          level: 'warning',
+          tags: {
+            error_type: 'localstorage_quota_exceeded',
+            store_key: name,
+          },
+          contexts: {
+            storage_info: {
+              attempted_value_size: JSON.stringify(value).length,
+            },
+          },
+        })
       } else {
         console.error('❌ Error saving to LocalStorage:', error)
+
+        // Report other storage errors to Sentry
+        Sentry.captureException(error instanceof Error ? error : new Error(String(error)), {
+          level: 'error',
+          tags: {
+            error_type: 'localstorage_setitem_error',
+            store_key: name,
+          },
+        })
       }
       // Don't throw - allow app to continue functioning
     }
