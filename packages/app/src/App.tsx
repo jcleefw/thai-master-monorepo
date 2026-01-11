@@ -1,13 +1,25 @@
 import { version } from '@thai-master/fuse';
+import { StoreDebug } from './components/StoreDebug';
 
 export function App() {
   return (
-    <div style={{ padding: '2rem', fontFamily: 'system-ui, sans-serif' }}>
-      <h1>Thai Master</h1>
-      <p>Script-first Thai language learning</p>
-      <p style={{ fontSize: '0.875rem', color: '#666' }}>
-        Fuse Library v{version}
-      </p>
-    </div>
+    <>
+      {/* Store Debug Component - REMOVE BEFORE PRODUCTION */}
+      <StoreDebug />
+
+      {/* Original App Content */}
+      <div style={{
+        padding: '2rem',
+        fontFamily: 'system-ui, sans-serif',
+        borderTop: '2px solid #ddd',
+        marginTop: '2rem',
+        textAlign: 'center',
+        color: '#999',
+      }}>
+        <p style={{ fontSize: '0.875rem' }}>
+          Fuse Library v{version}
+        </p>
+      </div>
+    </>
   );
 }
