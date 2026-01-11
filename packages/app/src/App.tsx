@@ -17,6 +17,8 @@ export function App() {
         <p style={{ fontSize: '0.875rem' }}>
           Fuse Library v{version}
         </p>
+
+       
       </div>
     </>
   );

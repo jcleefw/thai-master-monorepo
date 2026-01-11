@@ -78,12 +78,74 @@ npm run build:app
 
 - **Framework**: React 18 + TypeScript 5
 - **Build Tool**: Vite 5.x
-- **State Management**: Zustand (planned)
+- **State Management**: Zustand 5.0.9 with LocalStorage persistence
 - **Routing**: Wouter (planned)
 - **Styling**: Styled Components + Radix UI (planned)
 - **Testing**: Vitest 2.0.0 + Playwright 1.45.0
+- **Error Tracking**: Sentry 10.32.1
 - **Linting**: ESLint 9 + typescript-eslint v8
 - **Deployment**: Cloudflare Pages
+
+## Error Tracking Setup (Optional)
+
+Sentry error tracking is optional but recommended for production deployments. The app will work perfectly without it.
+
+### Setup Instructions
+
+1. **Create a Sentry account** at [https://sentry.io](https://sentry.io) (free tier available)
+
+2. **Create a new project** in Sentry:
+   - Platform: **React**
+   - Alert frequency: Choose based on your needs
+
+3. **Get your DSN**:
+   - Navigate to **Settings > Projects > [Your Project] > Client Keys (DSN)**
+   - Copy the DSN URL (looks like `https://xxx@xxx.ingest.sentry.io/xxx`)
+
+4. **Configure locally**:
+   ```bash
+   # Copy the example environment file
+   cp .env.local.example .env.local
+
+   # Edit .env.local and add your DSN
+   # VITE_SENTRY_DSN=https://your-dsn-here@sentry.io/project-id
+   ```
+
+5. **Verify setup**:
+   - Start the dev server: `npm run dev`
+   - Check browser console - no Sentry warnings should appear
+   - The app will display a warning if DSN is missing (this is normal and safe)
+
+### Production vs Development
+
+- **Recommended**: Use separate Sentry projects for development and production
+- Set different DSNs in `.env.local` (development) and deployment environment variables (production)
+- Development DSN: Captures all errors during local development
+- Production DSN: Captures errors from live users
+
+### What Gets Tracked
+
+When Sentry is configured, the following errors are automatically captured:
+
+- **React component errors** with full stack traces
+- **LocalStorage validation failures** (Zod schema errors)
+- **LocalStorage quota exceeded** errors
+- **Browser/device context** automatically included
+- **Session replays** for errors (helps with debugging)
+
+### Privacy & Security
+
+- `.env.local` is already in `.gitignore` to prevent committing sensitive DSNs
+- No user PII is collected by default
+- All data is stored in your Sentry account
+
+### Graceful Degradation
+
+If `VITE_SENTRY_DSN` is not configured:
+- The app works normally with full functionality
+- A console warning indicates Sentry is disabled
+- Users see friendly error messages with recovery options
+- Errors are logged to browser console only
 
 ## Project Goals
 
