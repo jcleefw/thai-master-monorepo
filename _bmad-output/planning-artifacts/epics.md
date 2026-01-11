@@ -301,10 +301,12 @@ Development environment is ready, and core architecture enables all future featu
 **What this delivers:**
 - Vite monorepo with Fuse component library (CDN-compilable) and App package
 - Testing infrastructure (Vitest for unit tests, Playwright for E2E)
-- CI/CD pipeline (GitHub Actions + Cloudflare Pages deployment)
+- CI/CD pipeline (GitHub Actions testing + Cloudflare Pages deployment)
+- GitHub Actions-controlled deployment to Cloudflare Pages
 - Core Zustand store with persist middleware and Zod validation
 - Sentry error tracking integration
 - Thai font loading (Noto Sans Thai, Sarabun) via Google Fonts CDN
+- Storybook for Fuse component development and documentation
 - Project context file and documentation
 - Responsive layout foundation and accessibility compliance setup
 
@@ -800,6 +802,192 @@ So that AI agents and human developers understand critical patterns, anti-patter
 **Then** AI agents can read the document and correctly apply patterns (e.g., named exports, barrel pattern, single Zustand store, tests in tests/ subdirectory)
 **And** anti-patterns are clearly flagged and avoided
 **And** critical requirements (Thai font rendering, <50ms canvas latency, zero data loss) are clearly understood
+
+---
+
+### Story 1.8: Add Storybook to @thai-master/fuse Library
+
+As a developer,
+I want Storybook integrated into the Fuse component library,
+So that I can develop, test, and document reusable components in isolation before integrating them into the App.
+
+**Acceptance Criteria:**
+
+**Given** the Fuse package exists in the monorepo
+**When** I install Storybook
+**Then** Storybook 8.4.7 is installed in `packages/fuse` as a dev dependency
+**And** `@storybook/react-vite` is used for Vite integration
+**And** Storybook configuration files are created in `packages/fuse/.storybook/`
+**And** `.storybook/main.ts` configures stories glob pattern: `../src/**/*.stories.@(ts|tsx)`
+**And** `.storybook/preview.ts` configures global decorators and parameters
+
+**Given** Storybook is installed
+**When** I configure Storybook for the Fuse library
+**Then** Storybook uses Vite as the builder
+**And** Storybook has access to TypeScript configurations from Fuse tsconfig
+**And** Storybook can import from Fuse src directory without build step
+**And** Hot Module Replacement (HMR) works in Storybook dev mode
+
+**Given** Storybook configuration exists
+**When** I integrate the theme from Story 1.6
+**Then** `.storybook/preview.ts` imports ThemeProvider from Fuse
+**And** `.storybook/preview.ts` imports GlobalStyles from Fuse
+**And** all stories are wrapped with ThemeProvider decorator
+**And** GlobalStyles component is rendered globally in Storybook
+**And** theme colors (cream, lavender, sage, periwinkle, coral, charcoal) are available in all stories
+
+**Given** theme integration is complete
+**When** I test Thai font rendering in Storybook
+**Then** Noto Sans Thai and Sarabun fonts load from Google Fonts CDN
+**And** Thai characters render with accurate tone mark positioning
+**And** font-display: swap works correctly (fallback → Noto Sans Thai)
+
+**Given** Storybook is configured with theme
+**When** I create a sample Button component story
+**Then** story file follows naming convention: `Button.stories.tsx`
+**And** story uses CSF3 (Component Story Format 3) syntax with `Meta` and `StoryObj` types
+**And** story includes multiple variants (default, disabled, loading)
+**And** story uses Storybook controls for interactive props
+**And** story renders with correct theme colors
+
+**Given** sample Button story exists
+**When** I run `npm run storybook` in packages/fuse
+**Then** Storybook dev server starts on `http://localhost:6006`
+**And** Button story appears in sidebar navigation
+**And** Button renders with theme colors from GlobalStyles
+**And** controls panel allows interactive prop changes
+**And** HMR updates stories when component code changes
+
+**Given** Storybook dev mode works
+**When** I run `npm run build-storybook` in packages/fuse
+**Then** static Storybook build outputs to `packages/fuse/storybook-static/`
+**And** build completes without errors
+**And** static build can be served and viewed in browser
+**And** all stories render correctly in static build
+
+**Given** Storybook is fully integrated
+**When** I document component development workflow
+**Then** README includes instructions:
+- `npm run storybook` to start dev server
+- Create stories in `src/components/**/*.stories.tsx`
+- Use CSF3 format with TypeScript
+- Wrap stories with ThemeProvider (automatic via decorator)
+- Test Thai character rendering in stories
+- Build static Storybook with `npm run build-storybook`
+
+**Given** Storybook build is configured
+**When** I add Storybook scripts to packages/fuse/package.json
+**Then** scripts include:
+- `"storybook": "storybook dev -p 6006"`
+- `"build-storybook": "storybook build"`
+**And** scripts are documented in README
+
+**Given** Storybook is configured for CI/CD (optional)
+**When** I consider adding Storybook build to GitHub Actions
+**Then** future Epic can add Storybook deployment to Cloudflare Pages
+**And** Storybook static site would serve as living component documentation
+**And** deployment URL documented for team reference (deferred to post-Epic 1)
+
+---
+
+### Story 1.9: Deploy to Cloudflare Pages via GitHub Actions
+
+As a developer,
+I want automated deployment to Cloudflare Pages controlled by GitHub Actions,
+So that builds run in GitHub's environment with full control over the build and deployment pipeline.
+
+**Acceptance Criteria:**
+
+**Given** a Cloudflare account with Pages project exists
+**When** I create a Cloudflare API token
+**Then** token has permissions: "Cloudflare Pages - Edit"
+**And** token is scoped to the specific Pages project or account
+**And** token is stored as GitHub repository secret `CLOUDFLARE_API_TOKEN`
+**And** Cloudflare Account ID is stored as GitHub repository secret `CLOUDFLARE_ACCOUNT_ID`
+
+**Given** Cloudflare secrets are configured in GitHub
+**When** I create `.github/workflows/deploy.yml` workflow file
+**Then** workflow triggers on:
+- Push to `main` branch (production deployment)
+- Pull request events (preview deployment)
+**And** workflow runs after test.yml passes (depends on test workflow)
+**And** workflow uses Node.js 18+ for build environment
+**And** workflow has separate jobs for production and preview deployments
+
+**Given** deployment workflow is configured
+**When** I set up the build job
+**Then** workflow checks out repository code
+**And** workflow sets up Node.js 18+ with caching enabled
+**And** workflow runs `npm ci` to install dependencies
+**And** workflow runs `npm run build` to build Fuse and App packages
+**And** build artifacts are available in `packages/app/dist/`
+**And** build step uses GitHub Actions cache for `node_modules` to speed up builds
+
+**Given** build completes successfully
+**When** I configure production deployment (main branch only)
+**Then** workflow uses `cloudflare/pages-action@v1` or `wrangler pages deploy`
+**And** deployment command targets `packages/app/dist` directory
+**And** deployment uses `CLOUDFLARE_API_TOKEN` from GitHub secrets
+**And** deployment uses `CLOUDFLARE_ACCOUNT_ID` from GitHub secrets
+**And** Pages project name is configured (e.g., "thai-master" or from environment variable)
+**And** deployment creates production deployment (branch: main)
+**And** deployment output URL is captured and displayed in workflow summary
+
+**Given** build completes successfully on PR
+**When** I configure preview deployment
+**Then** workflow deploys to Cloudflare Pages preview environment
+**And** preview uses PR branch name for deployment identification
+**And** preview URL is unique per PR (e.g., `<branch>.<project>.pages.dev`)
+**And** preview URL is posted as comment on PR (using `actions/github-script` or similar)
+**And** preview deployments are automatically cleaned up when PR is closed/merged
+
+**Given** deployment workflow is complete
+**When** I push to main branch
+**Then** test workflow runs first (lint, type-check, unit tests, E2E tests)
+**And** deployment workflow runs only if tests pass
+**And** build completes in GitHub Actions environment
+**And** app deploys to Cloudflare Pages production URL
+**And** production URL uses HTTPS (NFR-S1)
+**And** deployment completes within 5 minutes
+**And** workflow summary shows deployment URL
+
+**Given** a PR is created
+**When** tests pass
+**Then** preview deployment workflow runs
+**And** preview deployment completes successfully
+**And** preview URL is commented on PR
+**And** developers can test changes on preview URL before merging
+
+**Given** deployment workflow runs
+**When** build or deployment fails
+**Then** workflow fails with clear error message
+**And** GitHub shows failed status check on PR/commit
+**And** error message indicates which step failed (build or deploy)
+**And** logs are available in GitHub Actions for debugging
+
+**Given** deployment succeeds to production
+**When** I visit the production URL
+**Then** Thai Master app loads successfully
+**And** URL uses HTTPS protocol
+**And** initial load completes within 2 seconds on 4G connection (NFR-P3)
+**And** app functions identically to Cloudflare Pages native deployment
+
+**Given** Cloudflare Pages native integration exists (from Story 1.3)
+**When** I migrate to GitHub Actions deployment
+**Then** I disable Cloudflare Pages automatic deployments in Cloudflare dashboard (optional)
+**And** all deployments are now controlled by GitHub Actions
+**And** deployment history is visible in both GitHub Actions and Cloudflare Pages dashboard
+**And** documentation explains the GitHub Actions deployment approach
+
+**Given** deployment workflow is documented
+**When** I update repository README
+**Then** README includes deployment section with:
+- How deployments work (GitHub Actions → Cloudflare Pages)
+- Required GitHub secrets (CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID)
+- How to obtain Cloudflare API token
+- Production deployment process (push to main)
+- Preview deployment process (automatic on PRs)
+- How to view deployment logs in GitHub Actions
 
 ---
 
@@ -3177,10 +3365,10 @@ So that audio loads seamlessly in background without UI blocking and meets perfo
 ### Epic and Story Breakdown
 
 **Total Epics**: 5
-**Total Stories**: 31
+**Total Stories**: 33
 
-#### Epic 1: Project Setup & Core Infrastructure (7 stories)
-Foundation for all future development with monorepo, testing, CI/CD, state management, error tracking, theming, and documentation.
+#### Epic 1: Project Setup & Core Infrastructure (9 stories)
+Foundation for all future development with monorepo, testing, CI/CD, state management, error tracking, theming, Storybook, and documentation.
 
 1. Story 1.1: Initialize Vite Monorepo with Fuse Library & App Packages
 2. Story 1.2: Configure Testing Infrastructure (Vitest & Playwright)
@@ -3189,6 +3377,8 @@ Foundation for all future development with monorepo, testing, CI/CD, state manag
 5. Story 1.5: Integrate Sentry Error Tracking
 6. Story 1.6: Configure Thai Font Loading & Theme Foundation
 7. Story 1.7: Create Project Context Documentation
+8. Story 1.8: Add Storybook to @thai-master/fuse Library
+9. Story 1.9: Deploy to Cloudflare Pages via GitHub Actions
 
 #### Epic 2: Character Learning Foundation (6 stories)
 Interactive canvas-based character practice with audio, progress tracking, and offline support.
