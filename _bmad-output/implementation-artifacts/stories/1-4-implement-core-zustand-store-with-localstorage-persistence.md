@@ -3,8 +3,9 @@ story_id: "1-4"
 story_key: "1-4-implement-core-zustand-store-with-localstorage-persistence"
 epic: "epic-1"
 title: "Implement Core Zustand Store with LocalStorage Persistence"
-status: "ready-for-dev"
+status: "done"
 created: "2026-01-11"
+completed: "2026-01-11"
 ---
 
 # Story 1.4: Implement Core Zustand Store with LocalStorage Persistence
@@ -83,3 +84,80 @@ So that user progress persists across sessions with zero data loss and automatic
 
 - NFR-R1: User progress must persist across browser sessions with zero data loss
 - Story 1.5: Sentry integration for validation error logging
+
+---
+
+## Dev Agent Record
+
+### Implementation Plan
+
+Implemented global Zustand store following single-store pattern with:
+- Custom storage adapter integrating Zod validation in `storage.getItem()`
+- Automatic corruption recovery (backup + reset + log)
+- Quota exceeded error handling
+- TypeScript strict mode with comprehensive JSDoc documentation
+- Placeholder state structure for future epics (2-5)
+
+### Completion Notes
+
+✅ **Store Implementation Complete** (Date: 2026-01-11)
+
+**Core Implementation:**
+- Created single global store using Zustand 5.0.9 with persist middleware
+- Integrated Zod 4.3.5 validation in custom storage adapter
+- Implemented automatic corruption recovery with backup to `thai-master:store:corrupted`
+- Added graceful error handling for quota exceeded scenarios
+- Used named exports only (no default exports per project standards)
+
+**State Structure:**
+- 4 placeholder sections: characterProgress, vocabularyProgress, quizScores, userPreferences
+- UserPreferences includes configurable thresholds (70% alphabet, 50% vocabulary)
+- All sections typed with TypeScript strict mode + JSDoc comments
+
+**Testing:**
+- Created 3 comprehensive test files (552 lines total)
+- 33 tests covering: state updates, persistence, validation, corruption recovery, quota errors
+- All tests passing (100% pass rate)
+- Tests organized in `tests/` subdirectory per project standards
+
+**UI Testing:**
+- Created StoreDebug component for browser-based testing
+- Validated all acceptance criteria in actual browser environment
+- Tested: persistence, corruption recovery, validation, all actions
+
+**Validation:**
+- All acceptance criteria satisfied
+- NFR-R1 (zero data loss) verified with Zod validation + corruption recovery
+- LocalStorage key prefix `thai-master:store` enforced
+- Perfect fidelity restoration confirmed in tests
+
+---
+
+## File List
+
+**Implementation Files:**
+- `packages/app/src/stores/useStore.ts` (209 lines) - Main store with persist middleware
+- `packages/app/src/stores/types.ts` (104 lines) - TypeScript interfaces
+- `packages/app/src/stores/schemas.ts` (112 lines) - Zod validation schemas
+- `packages/app/src/stores/index.ts` (32 lines) - Barrel exports
+
+**Test Files:**
+- `packages/app/src/stores/tests/useStore.test.ts` (126 lines) - Basic functionality tests
+- `packages/app/src/stores/tests/useStore.persistence.test.ts` (214 lines) - Persistence tests
+- `packages/app/src/stores/tests/schemas.test.ts` (212 lines) - Schema validation tests
+
+**Debug/Demo Files:**
+- `packages/app/src/components/StoreDebug.tsx` (231 lines) - Debug UI component
+- `packages/app/src/App.tsx` (modified) - Integrated StoreDebug for testing
+
+**Total:** 9 files (8 new, 1 modified) | 1,240 lines of code
+
+---
+
+## Change Log
+
+**2026-01-11 - Initial Implementation**
+- Implemented Zustand store with LocalStorage persistence and Zod validation
+- Created comprehensive test suite (33 tests, 100% passing)
+- Added StoreDebug component for browser-based validation
+- Verified all acceptance criteria in actual browser environment
