@@ -61,7 +61,7 @@ describe('Sentry Integration', () => {
     })
 
     it('should show warning when DSN is not configured', () => {
-      // eslint-disable-next-line
+       
       ;(import.meta.env as any).VITE_SENTRY_DSN = ''
 
       // Simulate the warning logic from main.tsx
@@ -81,7 +81,7 @@ describe('Sentry Integration', () => {
 
     it('should use correct environment from Vite config', () => {
       const mockDsn = 'https://test@sentry.io/123'
-      // eslint-disable-next-line
+       
       ;(import.meta.env as any).VITE_SENTRY_DSN = mockDsn
 
       const config = {
@@ -141,7 +141,7 @@ describe('Sentry Integration', () => {
 
   describe('Graceful Degradation', () => {
     it('should allow app to function without Sentry configured', () => {
-      // eslint-disable-next-line
+       
       ;(import.meta.env as any).VITE_SENTRY_DSN = ''
 
       // App should still work
@@ -172,7 +172,7 @@ describe('Sentry Integration', () => {
   describe('Performance Configuration', () => {
     it('should set correct trace sample rate for POC', () => {
       const mockDsn = 'https://test@sentry.io/123'
-      // eslint-disable-next-line
+       
       ;(import.meta.env as any).VITE_SENTRY_DSN = mockDsn
 
       const config = {
@@ -193,7 +193,7 @@ describe('Sentry Integration', () => {
 
     it('should set correct replay sample rates', () => {
       const mockDsn = 'https://test@sentry.io/123'
-      // eslint-disable-next-line
+       
       ;(import.meta.env as any).VITE_SENTRY_DSN = mockDsn
 
       const config = {
@@ -217,7 +217,7 @@ describe('Sentry Integration', () => {
   describe('Release Version', () => {
     it('should set release version from package.json', () => {
       const mockDsn = 'https://test@sentry.io/123'
-      // eslint-disable-next-line
+       
       ;(import.meta.env as any).VITE_SENTRY_DSN = mockDsn
 
       const config = {

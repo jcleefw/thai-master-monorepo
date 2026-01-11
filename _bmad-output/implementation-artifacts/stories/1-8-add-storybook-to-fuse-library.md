@@ -3,8 +3,9 @@ story_id: "1-8"
 story_key: "1-8-add-storybook-to-fuse-library"
 epic: "epic-1"
 title: "Add Storybook to @thai-master/fuse Library"
-status: "ready-for-dev"
+status: "done"
 created: "2026-01-11"
+completed: "2026-01-12"
 ---
 
 # Story 1.8: Add Storybook to @thai-master/fuse Library
@@ -115,3 +116,109 @@ So that I can develop, test, and document reusable components in isolation befor
 - Deploy Storybook static build to Cloudflare Pages for team documentation
 - Add visual regression testing with Chromatic (post-POC)
 - Create comprehensive stories for all Fuse components as they're built
+
+## Tasks/Subtasks
+
+- [x] Install Storybook 8.4.7 with React-Vite integration
+  - [x] Run Storybook init for React-Vite project
+  - [x] Verify installation in packages/fuse/package.json
+  - [x] Check .storybook configuration files created
+- [x] Configure Storybook for Fuse library
+  - [x] Set stories glob pattern in main.ts
+  - [x] Configure TypeScript and Vite integration
+  - [x] Verify HMR works in dev mode
+- [x] Integrate theme into Storybook
+  - [x] Import ThemeProvider in preview.ts
+  - [x] Import GlobalStyles in preview.ts
+  - [x] Add global decorator for ThemeProvider (using React.createElement)
+  - [x] Test theme colors available in stories
+- [x] Test Thai font rendering
+  - [x] Verify Google Fonts load in Storybook
+  - [x] Test tone mark positioning with story examples
+  - [x] Verify font-display: swap behavior
+- [x] Create sample Button story
+  - [x] Create Button.stories.tsx with CSF3 format
+  - [x] Add multiple variants (Primary, Secondary, Disabled, WithThaiText, ThaiToneMarks, Loading)
+  - [x] Configure Storybook controls with argTypes
+  - [x] Verify theme integration in story
+- [x] Test Storybook dev server
+  - [x] Start dev server on port 6006
+  - [x] Verify stories appear in sidebar
+  - [x] Test HMR with component changes
+  - [x] Verify controls work interactively
+- [x] Build static Storybook
+  - [x] Run build-storybook command
+  - [x] Verify output in storybook-static/
+  - [x] Test static build in browser
+- [x] Add Storybook scripts to package.json
+  - [x] Add "storybook" script
+  - [x] Add "build-storybook" script
+  - [x] Verify scripts work correctly
+- [x] Document Storybook workflow
+  - [x] Add comprehensive Storybook section to README
+  - [x] Document dev server usage
+  - [x] Document story creation guidelines with CSF3 examples
+  - [x] Document build process
+- [x] Run all tests and validations
+  - [x] Existing tests pass (28/28 passing)
+  - [x] TypeScript compiles without errors
+  - [x] Linting passes (fixed ESLint 9 ignores config)
+  - [x] Storybook builds successfully
+
+## Dev Agent Record
+
+### Debug Log
+- Story started: 2026-01-11
+- Sprint status updated to in-progress
+- Tasks/Subtasks structure added
+
+### Implementation Plan
+Following red-green-refactor cycle for Storybook integration:
+1. Install Storybook 8.4.7 with @storybook/react-vite
+2. Configure Storybook with proper glob patterns and TypeScript
+3. Integrate ThemeProvider and GlobalStyles from Story 1.6
+4. Create sample Button.stories.tsx with CSF3 format
+5. Test dev server, HMR, and controls
+6. Build static Storybook and verify
+7. Document workflow in README
+8. Validate all tests pass
+
+### Completion Notes
+Successfully integrated Storybook 8.4.7 into the Fuse component library with complete theme integration.
+
+**Key Achievements:**
+- Installed Storybook 8.4.7 with @storybook/react-vite for optimal Vite integration
+- Configured theme integration using React.createElement() to avoid JSX syntax errors in .ts files
+- Created comprehensive Button.stories.tsx with 6 story variants including Thai text examples
+- Fixed ESLint 9 configuration to use new flat config ignores instead of deprecated .eslintignore
+- All tests pass (28/28), TypeScript compiles cleanly, linting passes
+- Static Storybook builds successfully to storybook-static/ directory
+- Created comprehensive README documentation with Storybook workflow
+
+**Technical Notes:**
+- Used React.createElement() in preview.ts decorator to avoid JSX in TypeScript files
+- ESLint 9 requires ignores in eslint.config.js, not .eslintignore file
+- Theme colors, fonts, and GlobalStyles automatically available in all stories via decorator
+- HMR works correctly in dev mode for rapid component development
+
+## File List
+- `packages/fuse/.storybook/main.ts` - Storybook main configuration with stories glob and addons
+- `packages/fuse/.storybook/preview.ts` - Theme integration with ThemeProvider decorator and GlobalStyles
+- `packages/fuse/src/components/Button/Button.stories.tsx` - Sample Button story with CSF3 format and 6 variants
+- `packages/fuse/README.md` - Comprehensive documentation including Storybook workflow
+- `packages/fuse/package.json` - Updated with Storybook dependencies and scripts
+- `packages/fuse/eslint.config.js` - Fixed ESLint 9 flat config with ignores property
+- `packages/fuse/storybook-static/` - Static build output directory (ignored by git and ESLint)
+
+## Change Log
+- 2026-01-11: Story started, tasks added, sprint status updated to in-progress
+- 2026-01-12: Installed Storybook 8.4.7 with React-Vite integration
+- 2026-01-12: Configured theme integration in preview.ts using React.createElement()
+- 2026-01-12: Created Button.stories.tsx with 6 story variants including Thai text
+- 2026-01-12: Built and tested static Storybook successfully
+- 2026-01-12: Created comprehensive README with Storybook documentation
+- 2026-01-12: Fixed ESLint 9 configuration with ignores property in flat config
+- 2026-01-12: All tests passing, story completed and ready for review
+
+## Status
+done

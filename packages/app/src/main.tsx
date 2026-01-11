@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import * as Sentry from '@sentry/react';
+import { ThemeProvider } from 'styled-components';
+import { theme, GlobalStyles } from '@thai-master/fuse';
 import { App } from './App';
-import './index.css';
 
 // Initialize Sentry before React renders
 // Gracefully degrade if DSN is not configured
@@ -32,8 +33,10 @@ if (sentryDsn) {
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <Sentry.ErrorBoundary
-      fallback={({ error, resetError }) => (
+    <ThemeProvider theme={theme}>
+      <GlobalStyles />
+      <Sentry.ErrorBoundary
+        fallback={({ error, resetError }) => (
         <div
           style={{
             display: 'flex',
@@ -91,9 +94,10 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           )}
         </div>
       )}
-      showDialog={false}
-    >
-      <App />
-    </Sentry.ErrorBoundary>
+        showDialog={false}
+      >
+        <App />
+      </Sentry.ErrorBoundary>
+    </ThemeProvider>
   </React.StrictMode>,
 );

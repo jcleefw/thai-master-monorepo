@@ -143,3 +143,8 @@ public/audio/
 
 # Local development
 .local/
+
+*storybook.log
+
+# Storybook
+storybook-static/
