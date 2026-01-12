@@ -15,9 +15,9 @@ I want a unified command to serve production build files locally,
 So that I can verify the final bundle behavior (PWA features, routing) before deploying to Cloudflare Pages.
 
 ## Acceptance Criteria
-- [ ] Add `preview` scripts to `packages/app` and root `package.json`.
-- [ ] Root command `pnpm run preview` should trigger the app preview.
-- [ ] Preview server must correctly resolve routes and serve assets from the `dist` folder.
+- [x] Add `preview` scripts to `packages/app` and root `package.json`.
+- [x] Root command `pnpm run preview` should trigger the app preview.
+- [x] Preview server must correctly resolve routes and serve assets from the `dist` folder.
 
 ## BDD Verification (Gherkin)
 **Scenario: Verifying production build artifacts locally**
@@ -31,11 +31,11 @@ So that I can verify the final bundle behavior (PWA features, routing) before de
 ## Tasks/Subtasks
 - [x] Add `"preview": "vite preview"` to `packages/app/package.json`.
 - [x] Add `"preview": "pnpm --filter @thai-master/app preview"` to root `package.json`.
-- [ ] Verify build-and-serve flow manually using the BDD scenario above.
+- [x] Verify build-and-serve flow manually using the BDD scenario.
 
 ## Dev Agent Record
-- **Implementation Plan**: Leverage Vite's built-in preview capability to serve the 'dist' directory. Standardize the command at the root level using pnpm filters.
-- **Completion Notes**: Pending final manual verification of asset resolution.
+- **Implementation Plan**: Leverage Vite's preview capability. Added a clean-and-build step to the root preview command to ensure artifacts are fresh.
+- **Completion Notes**: Production build verified locally; routing and asset resolution are functional.
 
 ## Status
-status: "in-progress"
+status: "review"
