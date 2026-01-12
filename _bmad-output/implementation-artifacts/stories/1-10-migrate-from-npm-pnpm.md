@@ -3,7 +3,7 @@ story_id: "1-10"
 story_key: "1-10-migrate-from-npm-pnpm"
 epic: "epic-1"
 title: "Migrate from npm to pnpm and Upgrade to React 19"
-status: "review"
+status: "done"
 created: "2026-01-12"
 completed: "2026-01-12"
 ---
@@ -46,4 +46,4 @@ So that the monorepo has strict dependency management, improved performance, and
 - **2026-01-12**: Upgrade to React 19 and resolution of "Duplicate React" runtime errors.
 
 ## Status
-status: "review"
+status: "done"

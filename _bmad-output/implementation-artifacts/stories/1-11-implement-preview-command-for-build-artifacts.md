@@ -3,8 +3,9 @@ story_id: "1-11"
 story_key: "1-11-implement-preview-command-for-build-artifacts"
 epic: "epic-1"
 title: "Implement Preview Command for Build Artifacts"
-status: "in-progress"
+status: "done"
 created: "2026-01-12"
+completed: "2026-01-12"
 ---
 
 # Story 1-11: Implement Preview Command for Build Artifacts
@@ -38,4 +39,4 @@ So that I can verify the final bundle behavior (PWA features, routing) before de
 - **Completion Notes**: Production build verified locally; routing and asset resolution are functional.
 
 ## Status
-status: "review"
+status: "done"
