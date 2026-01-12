@@ -3,7 +3,7 @@ story_id: "1-9"
 story_key: "1-9-deploy-to-cloudflare-pages-via-github-actions"
 epic: "epic-1"
 title: "Deploy to Cloudflare Pages via GitHub Actions"
-status: "ready-for-dev"
+status: "done"
 created: "2026-01-11"
 ---
 
@@ -181,3 +181,6 @@ If Story 1.3 already has Cloudflare Pages native integration:
 - GitHub Actions deployment can coexist (two deployment methods)
 - Or disable Cloudflare Pages automatic builds (recommended for single source)
 - Ensure only one deployment method is active to avoid confusion
+
+## Status
+done
