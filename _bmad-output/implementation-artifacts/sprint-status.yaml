@@ -52,6 +52,8 @@ development_status:
   1-8-add-storybook-to-fuse-library: done
   1-9-deploy-to-cloudflare-pages-via-github-actions: ready-for-dev
   epic-1-retrospective: optional
+  1-10-migrate-from-npm-pnpm: done
+  1-11-implement-preview-command-for-build-artifacts: done
 
   # Epic 2: Character Learning Foundation
   epic-2: backlog

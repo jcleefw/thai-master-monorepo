@@ -1,6 +1,9 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle, ExecutionProps } from 'styled-components';
+import { NamedExoticComponent } from 'react';
 
-export const GlobalStyles = createGlobalStyle`
+// Use NamedExoticComponent combined with ExecutionProps
+// This is what createGlobalStyle actually returns in modern versions
+export const GlobalStyles: NamedExoticComponent<ExecutionProps & object> = createGlobalStyle`
   /* CSS Reset */
   *,
   *::before,
@@ -63,4 +66,4 @@ export const GlobalStyles = createGlobalStyle`
     text-decoration: none;
     color: inherit;
   }
-`;
+` 

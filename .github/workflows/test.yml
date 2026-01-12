@@ -7,40 +7,90 @@ on:
     branches: [main, master]
 
 jobs:
-  test:
-    name: Test and Lint
+  # Group 1: Lint, Type Check, and Unit Tests
+  lint-and-unit:
+    name: Lint and Unit Tests
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'npm'
+          node-version: '20'
+          cache: 'pnpm'
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Build packages
-        run: npm run build
+        run: pnpm run build
 
       - name: Run ESLint
-        run: npm run lint
+        run: pnpm -r run lint
 
       - name: Run TypeScript type checks
-        run: npm run type-check
+        run: pnpm -r run type-check
 
       - name: Run unit tests
-        run: npm run test
+        run: pnpm -r run test
+
+  # Group 2: Playwright Installation and E2E Tests
+  e2e-tests:
+    name: Playwright E2E Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # Cache Playwright Browsers to avoid re-downloading
+      - name: Get Playwright version
+        id: playwright-version
+        run: echo "version=$(pnpm list --filter @thai-master/app @playwright/test --json | jq -r '.[0].devDependencies["@playwright/test"].version')" >> $GITHUB_OUTPUT
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        id: playwright-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ steps.playwright-version.outputs.version }}
+          restore-keys: |
+            ${{ runner.os }}-playwright-
 
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps chromium
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm --filter @thai-master/app exec playwright install --with-deps chromium
+      
+      # Ensure system dependencies are installed even if binaries are cached
+      - name: Install Playwright system dependencies
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: pnpm --filter @thai-master/app exec playwright install-deps chromium
+
+      - name: Build packages
+        run: pnpm run build
 
       - name: Run E2E tests
-        run: npm run test:e2e
+        run: pnpm --filter @thai-master/app run test:e2e
 
       - name: Upload Playwright report
         uses: actions/upload-artifact@v4
