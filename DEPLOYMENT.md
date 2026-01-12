@@ -59,7 +59,6 @@ npm install -g wrangler
 wrangler login
 
 # Deploy
-wrangler pages deploy packages/app/dist --project-name=thai-master
 ```
 
 ### Performance Targets
