@@ -16,9 +16,8 @@ export const GlobalStyles: NamedExoticComponent<ExecutionProps & object> = creat
   /* Body styles with Thai font stack */
   body {
     font-family: 'Sarabun', 'Noto Sans Thai', sans-serif;
-    font-size: ${props => props.theme.typography.baseFontSize};
+    font-size: ${props => { console.log(props); return props.theme.typography.baseFontSize }};
     line-height: ${props => props.theme.typography.lineHeight};
-    background-color: ${props => props.theme.colors.cream};
     color: ${props => props.theme.colors.charcoal};
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

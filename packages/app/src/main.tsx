@@ -2,8 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import * as Sentry from '@sentry/react';
 import { ThemeProvider } from 'styled-components';
-import { theme, GlobalStyles } from '@thai-master/fuse';
+import { GlobalStyles, theme } from '@thai-master/fuse';
 import { App } from './App';
+
+// fallback for local development to override the global styles
+if (import.meta.env.MODE === 'development') {
+  import('./global.css');
+}
 
 // Initialize Sentry before React renders
 // Gracefully degrade if DSN is not configured
@@ -34,7 +39,6 @@ if (sentryDsn) {
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <GlobalStyles />
       <Sentry.ErrorBoundary
         fallback={({ error, resetError }) => (
         <div
@@ -98,6 +102,8 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       >
         <App />
       </Sentry.ErrorBoundary>
+      <GlobalStyles />
+
     </ThemeProvider>
   </React.StrictMode>,
 );

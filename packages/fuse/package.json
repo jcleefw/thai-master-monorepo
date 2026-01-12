@@ -11,7 +11,8 @@
       "types": "./dist/index.d.ts",
       "development": "./src/index.ts", 
       "import": "./dist/fuse.js",
-      "require": "./dist/fuse.umd.cjs"
+      "require": "./dist/fuse.umd.cjs",
+      "default": "./dist/fuse.js"
     }
   },
   "files": [

@@ -8,6 +8,10 @@ export default defineConfig({
   server: {
     port: 3000,
     open: true,
+    fs: {
+      // Allow serving files from the monorepo root
+      allow: ['../../'],
+    },
   },
   resolve: {
     alias: {
@@ -19,4 +23,8 @@ export default defineConfig({
   },
   // Look for .env files in the monorepo root (two levels up)
   envDir: path.resolve(__dirname, '../../'),
+  // Add this to ensure Vite doesn't try to use the pre-bundled fuse/dist in dev
+  optimizeDeps: {
+    exclude: ['@thai-master/fuse'],
+  },
 });

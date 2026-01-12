@@ -5,6 +5,8 @@
  * Built with React, TypeScript, and Vite.
  */
 
+/// <reference path="./theme/styled.d.ts" />
+
 export const version = '0.1.0';
 
 // Theme
