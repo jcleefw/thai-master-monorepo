@@ -12,26 +12,43 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "npm run build:fuse && npm run build:app",
-    "build:fuse": "npm run build --workspace=@thai-master/fuse",
-    "build:app": "npm run build --workspace=@thai-master/app",
-    "dev": "npm run dev --workspace=@thai-master/app",
-    "dev:fuse": "npm run dev --workspace=@thai-master/fuse",
-    "storybook": "npm run storybook --workspace=@thai-master/fuse",
-    "storybook:build": "npm run build-storybook --workspace=@thai-master/fuse",
-    "test": "npm run test --workspace=@thai-master/fuse && npm run test --workspace=@thai-master/app",
+    "preview": "rm -rf packages/app/dist && pnpm build && pnpm --filter @thai-master/app preview",
+    "build": "pnpm run build:fuse && pnpm run build:app",
+    "build:fuse": "pnpm --filter @thai-master/fuse build",
+    "build:app": "pnpm --filter @thai-master/app build",
+    "dev": "pnpm --filter @thai-master/app dev",
+    "dev:fuse": "pnpm --filter @thai-master/fuse dev",
+    "storybook": "pnpm --filter @thai-master/fuse storybook",
+    "storybook:build": "pnpm --filter @thai-master/fuse build-storybook",
+    "test": "pnpm -r test",
     "test:watch": "vitest",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest run --coverage --passWithNoTests",
-    "test:e2e": "npm run test:e2e --workspace=@thai-master/app",
-    "test:all": "npm run test && npm run test:e2e",
-    "lint": "npm run lint --workspaces",
-    "type-check": "npm run type-check --workspaces"
+    "test:e2e": "pnpm --filter @thai-master/app test:e2e",
+    "test:all": "pnpm run test && pnpm run test:e2e",
+    "lint": "pnpm -r lint",
+    "type-check": "pnpm -r type-check",
+    "preinstall": "npx only-allow pnpm"
+  },
+  "pnpm": {
+    "overrides": {
+      "@types/react": "^19.0.0",
+      "@types/react-dom": "^19.0.0",
+      "react": "^19.0.0",
+      "react-dom": "^19.0.0"
+    }
+  },
+  "resolutions": {
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.1.5",
-    "@testing-library/react": "^14.0.0",
+    "@testing-library/react": "^16.0.0",
     "@testing-library/user-event": "^14.5.1",
+    "@types/node": "^22.0.0",
     "@types/styled-components": "^5.1.36",
     "@vitest/ui": "^2.0.0",
     "jsdom": "^24.0.0",
